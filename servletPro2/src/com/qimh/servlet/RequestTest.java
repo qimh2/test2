@@ -30,6 +30,8 @@ public class RequestTest extends HttpServlet {
 		//response.setHeader("Cache-Control", "no-cache");
 		
 		out.println("hello world2222"+new Date().toString());
+		System.err.println(" Exception .....");
+		
 	}
 
 	/**
