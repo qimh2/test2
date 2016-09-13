@@ -5,6 +5,10 @@ import java.io.PrintWriter;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.stream.events.StartDocument;
 
 import org.apache.catalina.tribes.membership.StaticMember;
+
+import sun.print.resources.serviceui;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
@@ -98,11 +104,24 @@ public class ManagerUsers extends HttpServlet {
 					start = (pageNow-1) * pageSize;
 				}
 			}
+			
+			if(request.getParameter("newRound") != null){
+				pageNow = Integer.parseInt(request.getParameter("newRound"));
+				if(pageNow == 1){//第一页
+					start = 0;
+				}else{//第二页，第三页,第四页....
+					start = (pageNow-1) * pageSize;
+				}
+			}
 		
 			
 			int num = pageSize;
 			
 			String sql = "select * from users limit "+start+","+num;
+			
+			
+			System.out.println("sql:"+sql);
+			
 			ps = (PreparedStatement) ct.prepareStatement(sql);
 			
 			rs = ps.executeQuery();
@@ -125,9 +144,66 @@ public class ManagerUsers extends HttpServlet {
 			}
 			out.println("</table>");
 			
+			int flag = 1;
+			int pages = 3;//一轮可分的页数
+			int m = 0;
+			
+			
+			//以下是实现分页功能，思路：把总共多少页页数，按照一轮可分的页数来进行拆分
+			StringBuffer sb = new StringBuffer();
 			for(int i = 0;i < pageCount;i++){
-				out.println("<a href = '/UserManager/ManagerUsers?pageNow="+(i+1)+"'>"+(i+1)+" </a>&nbsp&nbsp");
+				String str = String.valueOf(i+1);
+				int i_new = i+1;
+				if(i_new%pages == 0){
+					str = str+"@";
+				}
+				sb.append(str);
+				
 			}
+			System.out.println("sb:"+sb);
+			
+			String str = sb.toString();
+			String[] str_arr = str.split("@");
+			Map<String, String> map = new HashMap<String, String>();
+			for(int i = 0;i < str_arr.length;i++){
+				map.put(str_arr[i], str_arr[i]);
+			}
+			
+			System.out.println("map:"+map.toString());
+		   //遍历map	
+		   for (String key : map.keySet()) {
+			   if(key.contains(String.valueOf(pageNow))){
+				   for(int j = 0;j < key.length();j++){
+					   int currentPage = Integer.parseInt(String.valueOf(key.charAt(j)));
+					   System.out.println("currentPage:"+currentPage);
+					   if(j == 0){//第一页
+						   if(currentPage > 1){
+							   out.println("<a href = '/UserManager/ManagerUsers?newRound="+(currentPage-1)+"'> << </a>&nbsp&nbsp");
+						   }else{
+							   out.println("<a href = '/UserManager/ManagerUsers?newRound="+1+"'> << </a>&nbsp&nbsp");
+						   }
+						}
+						
+					   out.println("<a href = '/UserManager/ManagerUsers?pageNow="+currentPage+"'>"+currentPage+" </a>&nbsp&nbsp");
+						
+					   if(j == key.length()-1){//最后一页
+						   if(currentPage < pageCount){
+							   out.println("<a href = '/UserManager/ManagerUsers?newRound="+(currentPage+1)+"'>  >> </a>");
+						   }
+					   }
+					
+					   
+				   }
+				}
+			  
+		   }
+			
+			
+//			for(int i = 0;i < pageCount;i++){
+				
+					   
+//					   break;
+//				}
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -135,6 +211,37 @@ public class ManagerUsers extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(ps != null){
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(ct != null){
+				try {
+					ct.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			
+			rs = null;
+			ps = null;
+			ct = null;
+			
 		}
 		
 		
