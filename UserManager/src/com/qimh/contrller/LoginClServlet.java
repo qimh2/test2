@@ -35,6 +35,9 @@ public class LoginClServlet extends HttpServlet {
 		
 		
 		
+		//º”‘ÿDBHelper
+		DBHelper dbHelper = new DBHelper();
+		
 		
 		
 		
