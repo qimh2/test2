@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
-  <runtime name="Apache Tomcat v6.0"/>
+  <!--可以删除runtime 元素 ，也可以把name修改为：name="My Tomcat v6.0"-->
+  <!--<runtime name="Apache Tomcat v6.0"/>-->
   <fixed facet="jst.web"/>
   <fixed facet="wst.jsdt.web"/>
   <fixed facet="java"/>
