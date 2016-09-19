@@ -22,6 +22,55 @@ public class UsersService {
 	
 	
 	
+	
+	
+	
+	/**
+	 * addUser 添加用户
+	 * @author qimh	
+	 * @date 20160918
+	 * @param Users 对象
+	 * @return 成功--true/失败--false
+	 */
+	public boolean addUser(Users u){
+		boolean flag = false;
+		
+		
+		try {
+			String sql = "insert into users (username,pwd,email) values (?,?,?)";
+			ct = (Connection) DBHelper.getConnection();
+			if(ct != null){
+				System.out.println("数据连接正常！");
+			}else{
+				System.out.println("数据库连接失败！");
+			}
+			
+			ps = (PreparedStatement) ct.prepareStatement(sql);
+			
+			//给？赋值
+			ps.setObject(1, u.getUsername());
+			ps.setObject(2, u.getPwd());
+			ps.setObject(3, u.getEmail());
+			
+			int affectNum = ps.executeUpdate();
+			if(affectNum > 0){
+				flag = true;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			DBHelper.destoryResource(ps);
+		}
+		
+		
+		return flag;
+	}
+	
+	
+	
+	
 	/**
 	 * modUser 删除用户
 	 * @author qimh	
@@ -29,7 +78,7 @@ public class UsersService {
 	 * @param String id---用户id
 	 * @return 成功--true/失败--false
 	 */
-	public boolean modUser(String id,String username,String pwd,String email){
+	public boolean modUser(Users u){
 		boolean flag = false;
 		
 		
@@ -45,10 +94,10 @@ public class UsersService {
 			ps = (PreparedStatement) ct.prepareStatement(sql);
 			
 			//给？赋值
-			ps.setObject(1, username);
-			ps.setObject(2, pwd);
-			ps.setObject(3, email);
-			ps.setObject(4, id);
+			ps.setObject(1, u.getUsername());
+			ps.setObject(2, u.getPwd());
+			ps.setObject(3, u.getEmail());
+			ps.setObject(4, u.getId());
 			
 			int affectNum = ps.executeUpdate();
 			if(affectNum > 0){
@@ -58,6 +107,8 @@ public class UsersService {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			DBHelper.destoryResource(ps);
 		}
 		
 		
@@ -97,6 +148,8 @@ public class UsersService {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			DBHelper.destoryResource(ps);
 		}
 		
 		
