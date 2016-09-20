@@ -26,7 +26,7 @@ public class UsersService {
 	
 	
 	/**
-	 * addUser 添加用户
+	 * getUesrById 根据用户id获取用户信息
 	 * @author qimh	
 	 * @date 20160918
 	 * @param Users 对象
@@ -63,7 +63,7 @@ public class UsersService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
-			DBHelper.destoryResource(ps);
+			DBHelper.destoryResource(rs,ps);
 		}
 		
 		

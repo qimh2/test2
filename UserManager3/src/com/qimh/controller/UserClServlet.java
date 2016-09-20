@@ -49,7 +49,7 @@ public class UserClServlet extends HttpServlet {
 			
 			
 			//请求转发到修改页面
-			request.setAttribute("users", u);
+			request.setAttribute("users", u);//为了让下一个servlet（界面）使用我们的Users对象，我们可以把该users对象放到request对象中
 			request.getRequestDispatcher("/modUser").forward(request, response);
 			
 		}
@@ -57,7 +57,7 @@ public class UserClServlet extends HttpServlet {
 		if("modUserService".equals(type)){//修改用户信息---model
 			
 			//request.setCharacterEncoding("utf-8");
-			//接收参数
+			//接收用户信息【思考，如果用户提交的数据格式不对，有一个验证】
 			String id = request.getParameter("id");
 			String username = MyTools.getNewString(request.getParameter("username"), "iso-8859-1", "utf-8");
 			String pwd = request.getParameter("pwd");

@@ -39,6 +39,7 @@ public class modUser extends HttpServlet {
 //		UsersService us = new UsersService();
 //		Users u =  us.getUesrById(id);
 		
+		//获取从控制器传递的users对象
 		Users u = (Users) request.getAttribute("users");
 		String username =  u.getUsername();
 		String pwd = u.getPwd();
@@ -49,6 +50,7 @@ public class modUser extends HttpServlet {
 		System.out.println("pwd"+pwd);
 		System.out.println("email"+email);
 		
+		//显示
 		out.println("<h1>修改用户信息</h1>");
 		//action 应该这样写 /web应用名/servlet的url
 		out.println("<form action = '/UserManager3/UserClServlet' method = 'post'>");
@@ -57,7 +59,8 @@ public class modUser extends HttpServlet {
 		out.println("邮箱:<input type = 'text' name = 'email' value = '"+email+"'/></br>");
 		out.println("<input type = 'hidden' name = 'id' value = '"+id+"'/>");
 		out.println("<input type = 'hidden' name = 'type' value = 'modUserService'/>");
-		out.println("<input type = 'submit' value = '提交信息'/>");
+		out.println("<input type = 'submit' value = '修改用户'/>");
+		out.println(" <input type='reset' value='重置用户' />");
 		out.println("</form>");
 		
 	}
