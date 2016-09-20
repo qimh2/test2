@@ -34,8 +34,10 @@ public class UserClServlet extends HttpServlet {
 			
 			if(us.delUser(id)){//成功
 				//ok  forward
+				request.setAttribute("info", "恭喜你，删除成功");
 				request.getRequestDispatcher("/Ok").forward(request, response);
 			}else{//失败
+				request.setAttribute("info", "对不起，删除失败");
 				request.getRequestDispatcher("/Err").forward(request, response);
 			}
 		}
@@ -56,35 +58,7 @@ public class UserClServlet extends HttpServlet {
 		
 		if("modUserService".equals(type)){//修改用户信息---model
 			
-			//request.setCharacterEncoding("utf-8");
-			//接收用户信息【思考，如果用户提交的数据格式不对，有一个验证】
-			String id = request.getParameter("id");
-			String username = MyTools.getNewString(request.getParameter("username"), "iso-8859-1", "utf-8");
-			String pwd = request.getParameter("pwd");
-			String email = request.getParameter("email");
-			
-			
-			System.out.println("修改用户 form 表单提交数据【");
-			System.out.println("username:"+username);
-			System.out.println("pwd:"+pwd);
-			System.out.println("email:"+email);
-			System.out.println("】修改用户 form 表单提交数据");
-			
-			
-			Users u = new Users();
-			u.setUsername(username);
-			u.setPwd(pwd);
-			u.setEmail(email);
-			u.setId(Integer.parseInt(id));
-			//调用UsersService完成修改
-			//UsersService us = new UsersService();
-			if(us.modUser(u)){//成功
-				//ok  forward
-				request.getRequestDispatcher("/Ok").forward(request, response);
-			}else{//失败
-				request.getRequestDispatcher("/Err").forward(request, response);
-			}
-			
+			modUserService(request, response, us);
 			
 		}
 		
@@ -95,37 +69,86 @@ public class UserClServlet extends HttpServlet {
 		}
 		
 		if("addUserService".equals(type)){//添加用户---model
-			//接收参数
-			String username = MyTools.getNewString(request.getParameter("username"), "iso-8859-1", "utf-8");
-			String pwd = request.getParameter("pwd");
-			String email = request.getParameter("email");
+			addUserService(request, response, us);
 			
-			System.out.println("添加用户 form 表单提交数据【");
-			System.out.println("username:"+username);
-			System.out.println("pwd:"+pwd);
-			System.out.println("email:"+email);
-			System.out.println("】添加用户 form 表单提交数据");
-			
-			
-			Users u = new Users();
-			u.setUsername(username);
-			u.setPwd(pwd);
-			u.setEmail(email);
-			
-			//UsersService us = new UsersService();
-			us.addUser(u);
-			
-			if(us.addUser(u)){//成功
-				//ok  forward
-				request.getRequestDispatcher("/Ok").forward(request, response);
-			}else{//失败
-				request.getRequestDispatcher("/Err").forward(request, response);
-			}
-			
-	
 		}
 		
 
+	}
+
+	//修改用户信息
+	private void modUserService(HttpServletRequest request,
+			HttpServletResponse response, UsersService us)
+			throws ServletException, IOException {
+		//request.setCharacterEncoding("utf-8");
+		//接收用户信息【思考，如果用户提交的数据格式不对，有一个验证】
+		String id = request.getParameter("id");
+		String username = MyTools.getNewString(request.getParameter("username"), "iso-8859-1", "utf-8");
+		String pwd = request.getParameter("pwd");
+		String email = request.getParameter("email");
+		String grade = request.getParameter("grade");
+		
+		
+		System.out.println("修改用户 form 表单提交数据【");
+		System.out.println("username:"+username);
+		System.out.println("pwd:"+pwd);
+		System.out.println("email:"+email);
+		System.out.println("grade:"+grade);
+		System.out.println("】修改用户 form 表单提交数据");
+		
+		
+		Users u = new Users();
+		u.setUsername(username);
+		u.setPwd(pwd);
+		u.setEmail(email);
+		u.setId(Integer.parseInt(id));
+		u.setGrade(Integer.parseInt(grade));
+		//调用UsersService完成修改
+		//UsersService us = new UsersService();
+		if(us.modUser(u)){//成功
+			//ok  forward
+			request.setAttribute("info", "恭喜你，修改成功");
+			request.getRequestDispatcher("/Ok").forward(request, response);
+		}else{//失败
+			request.setAttribute("info", "对不起，修改失败");
+			request.getRequestDispatcher("/Err").forward(request, response);
+		}
+	}
+	
+	//添加用户
+	private void addUserService(HttpServletRequest request,
+			HttpServletResponse response, UsersService us)
+			throws ServletException, IOException {
+		//接收用户信息
+		String username = MyTools.getNewString(request.getParameter("username"), "iso-8859-1", "utf-8");
+		String pwd = request.getParameter("pwd");
+		String email = request.getParameter("email");
+		String grade = request.getParameter("grade");
+		
+		System.out.println("添加用户 form 表单提交数据【");
+		System.out.println("username:"+username);
+		System.out.println("pwd:"+pwd);
+		System.out.println("email:"+email);
+		System.out.println("】添加用户 form 表单提交数据");
+		
+		
+		//构建一个Users对象
+		//把接收到的信息，封装成一个Users对象
+		Users u = new Users();
+		u.setUsername(username);
+		u.setPwd(pwd);
+		u.setEmail(email);
+		u.setGrade(Integer.parseInt(grade));
+		
+		//UsersService us = new UsersService();
+		if(us.addUser(u)){//成功
+			//ok  forward
+			request.setAttribute("info", "恭喜你，添加成功");
+			request.getRequestDispatcher("/Ok").forward(request, response);
+		}else{//失败
+			request.setAttribute("info", "对不起，添加失败");
+			request.getRequestDispatcher("/Err").forward(request, response);
+		}
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

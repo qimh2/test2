@@ -18,10 +18,11 @@ public class AddUserForm extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<h1>添加用户信息</h1>");
 		//action 应该这样写 /web应用名/servlet的url
-		out.println("<form action = '/UserManager2/UserClServlet' method = 'post'>");
+		out.println("<form action = '/UserManager3/UserClServlet' method = 'post'>");
 		out.println("用户名:<input type = 'text' name = 'username'/>"+"</br>");
 		out.println("密  码:<input type = 'passpord' name = 'pwd'/></br>");
 		out.println("邮箱:<input type = 'text' name = 'email'/></br>");
+		out.println("用户等级:<input type = 'text' name = 'grade'/></br>");
 		out.println("<input type = 'hidden' name = 'type' value = 'addUserService'/></br>");
 		out.println("<input type = 'submit' value = '提交信息'/>");
 		out.println("</form>");

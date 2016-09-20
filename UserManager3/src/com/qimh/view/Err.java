@@ -15,7 +15,7 @@ public class Err extends HttpServlet {
 
 		response.setContentType("text/html ;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		out.println("对不起，操作失败");
+		out.println(request.getAttribute("info"));
 
 	}
 

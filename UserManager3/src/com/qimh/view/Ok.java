@@ -15,7 +15,7 @@ public class Ok extends HttpServlet {
 
 		response.setContentType("text/html ;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		out.println("恭喜你，操作成功<br>");
+		out.println(request.getAttribute("info")+"<br>");
 		out.println("<a href='/UserManager3/MainFrame'>返回主界面</a>");
 
 	}

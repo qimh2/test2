@@ -45,10 +45,12 @@ public class modUser extends HttpServlet {
 		String pwd = u.getPwd();
 		String email = u.getEmail();
 		String id = String.valueOf(u.getId());
+		String grade = String.valueOf(u.getGrade());
 		
 		System.out.println("username"+username);
 		System.out.println("pwd"+pwd);
 		System.out.println("email"+email);
+		System.out.println("grade"+grade);
 		
 		//显示
 		out.println("<h1>修改用户信息</h1>");
@@ -57,6 +59,7 @@ public class modUser extends HttpServlet {
 		out.println("用户名:<input type = 'text' name = 'username'/ value = '"+username+"'>"+"</br>");
 		out.println("密  码:<input type = 'passpord' name = 'pwd' value = '"+pwd+"'/></br>");
 		out.println("邮箱:<input type = 'text' name = 'email' value = '"+email+"'/></br>");
+		out.println("用户等级:<input type = 'text' name = 'grade' value = '"+grade+"'/></br>");
 		out.println("<input type = 'hidden' name = 'id' value = '"+id+"'/>");
 		out.println("<input type = 'hidden' name = 'type' value = 'modUserService'/>");
 		out.println("<input type = 'submit' value = '修改用户'/>");

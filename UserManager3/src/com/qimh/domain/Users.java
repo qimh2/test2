@@ -1,11 +1,34 @@
 package com.qimh.domain;
 
+import org.apache.catalina.User;
+
 public class Users {
 	private int id ;
 	private String username;
 	private String pwd;
 	private String email;
 	private int grade;
+	
+	
+	
+	
+	
+	
+	
+	public Users(){
+		
+	}
+	
+	public Users(int id, String username, String pwd, String email, int grade) {
+		this.id = id;
+		this.username = username;
+		this.pwd = pwd;
+		this.email = email;
+		this.grade = grade;
+	}
+	
+	
+	
 	public int getId() {
 		return id;
 	}

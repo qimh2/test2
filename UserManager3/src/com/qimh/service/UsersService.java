@@ -57,6 +57,7 @@ public class UsersService {
 				u.setPwd(rs.getString("pwd"));
 				u.setEmail(rs.getString("email"));
 				u.setId(Integer.parseInt(id));
+				u.setGrade(rs.getInt("grade"));
 			}
 			
 		} catch (SQLException e) {
@@ -84,7 +85,7 @@ public class UsersService {
 		
 		
 		try {
-			String sql = "insert into users (username,pwd,email) values (?,?,?)";
+			String sql = "insert into users (username,pwd,email,grade) values (?,?,?,?)";
 			ct = (Connection) DBHelper.getConnection();
 			if(ct != null){
 				System.out.println("数据连接正常！");
@@ -98,6 +99,7 @@ public class UsersService {
 			ps.setObject(1, u.getUsername());
 			ps.setObject(2, u.getPwd());
 			ps.setObject(3, u.getEmail());
+			ps.setObject(4, u.getGrade());
 			
 			int affectNum = ps.executeUpdate();
 			if(affectNum > 0){
@@ -119,10 +121,10 @@ public class UsersService {
 	
 	
 	/**
-	 * modUser 删除用户
+	 * modUser 修改用户信息
 	 * @author qimh	
 	 * @date 20160918
-	 * @param String id---用户id
+	 * @param Users u 对象
 	 * @return 成功--true/失败--false
 	 */
 	public boolean modUser(Users u){
@@ -130,7 +132,7 @@ public class UsersService {
 		
 		
 		try {
-			String sql = "update users set username=?,pwd=?,email=? where id = ?";
+			String sql = "update users set username=?,pwd=?,email=?,grade=? where id = ?";
 			ct = (Connection) DBHelper.getConnection();
 			if(ct != null){
 				System.out.println("数据连接正常！");
@@ -144,7 +146,9 @@ public class UsersService {
 			ps.setObject(1, u.getUsername());
 			ps.setObject(2, u.getPwd());
 			ps.setObject(3, u.getEmail());
-			ps.setObject(4, u.getId());
+			ps.setObject(4, u.getGrade());
+			ps.setObject(5, u.getId());
+			
 			
 			int affectNum = ps.executeUpdate();
 			if(affectNum > 0){
