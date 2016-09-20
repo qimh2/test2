@@ -49,7 +49,7 @@ public class UserClServlet extends HttpServlet {
 			
 			
 			//请求转发到修改页面
-			request.setAttribute("users", u);//为了让下一个servlet（界面）使用我们的Users对象，我们可以把该users对象放到request对象中
+			request.setAttribute("users", u);//为了让下一个servlet（界面）使用我们的u对象，我们可以把该u对象放到request对象中
 			request.getRequestDispatcher("/modUser").forward(request, response);
 			
 		}
