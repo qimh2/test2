@@ -16,7 +16,15 @@ public class Ok extends HttpServlet {
 		response.setContentType("text/html ;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.println(request.getAttribute("info")+"<br>");
-		out.println("<a href='/UserManager3/MainFrame'>返回主界面</a>");
+		String servlet = "MainFrame";
+		String message = "返回主界面";
+		if(request.getAttribute("info") != null){
+			if("非法登录".equals(request.getAttribute("info"))){
+				servlet = "LoginServlet";
+				message = "返回登录页面";
+			}
+		}
+		out.println("<a href='/UserManager3/"+servlet+"'>"+message+"</a>");
 
 	}
 

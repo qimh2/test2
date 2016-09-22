@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
@@ -53,8 +54,15 @@ public class LoginClServlet extends HttpServlet {
 			//该用户合法
 			//action 应该这样写 /web应用名/servlet的url
 			//response.sendRedirect("/UserManager/MainFrame");//请求重定向
+			
+			//登录成功创建session
+			HttpSession session = request.getSession();
+			
+			session.setAttribute("userInfo", users);
+			
 			System.out.println("登录成功。。。。。");
 			request.getRequestDispatcher("/MainFrame").forward(request, response);//请求转发
+			return;//import
 		}else{
 			//用户非法，调回登录页面
 			//response.sendRedirect("/UserManager/LoginServlet");
