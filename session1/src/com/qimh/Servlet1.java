@@ -20,25 +20,26 @@ public class Servlet1 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//tese
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		//·ÃÎÊsession[µ±·¢ÏÖÃ»ÓĞsessionÊ±ºò£¬¾Í»á×Ô¶¯´´½¨Ò»¸ösession]
+		//è®¿é—®session[å½“å‘ç°æ²¡æœ‰sessionæ—¶å€™ï¼Œå°±ä¼šè‡ªåŠ¨åˆ›å»ºä¸€ä¸ªsession]
 		HttpSession session = request.getSession();
-		//¸ø¸Ãsession·ÅÈëÊôĞÔ
-		session.setAttribute("uname", "ËÎ½­");
+		//ç»™è¯¥sessionæ”¾å…¥å±æ€§
+		session.setAttribute("uname", "å®‹æ±Ÿ");
 		session.setAttribute("age", "100");
-		//session µÄÉúÃüÖÜÆÚ£¨Ä¬ÈÏ30£¬ÄãÒ²¿ÉÒÔĞŞ¸Ä£©
-		session.setMaxInactiveInterval(20);//20sÖ¸µÄÊÇ ·¢´ôÊ±¼ä
+		//session çš„ç”Ÿå‘½å‘¨æœŸï¼ˆé»˜è®¤30ï¼Œä½ ä¹Ÿå¯ä»¥ä¿®æ”¹ï¼‰
+		session.setMaxInactiveInterval(20);//20sæŒ‡çš„æ˜¯ å‘å‘†æ—¶é—´
 		
 		
-		//´´½¨Ò»¸ö¶ÔÏó
+		//åˆ›å»ºä¸€ä¸ªå¯¹è±¡
 		User user = new User();
-		user.setName("Ğ¡Ã÷");
+		user.setName("å°æ˜");
 		user.setAge(20);
 		
 		session.setAttribute("user", user);
 		
-		out.println("´´½¨Ò»¸ösession");
+		out.println("åˆ›å»ºä¸€ä¸ªsession");
 		
 		
 		
