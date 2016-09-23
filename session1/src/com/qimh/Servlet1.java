@@ -20,7 +20,7 @@ public class Servlet1 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//test222333444555666
+		//test111
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		//访问session[当发现没有session时候，就会自动创建一个session]
