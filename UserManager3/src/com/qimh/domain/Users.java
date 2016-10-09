@@ -1,6 +1,5 @@
 package com.qimh.domain;
 
-import org.apache.catalina.User;
 
 public class Users {
 	private int id ;
