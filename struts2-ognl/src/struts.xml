@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+    
+<struts>
+
+<!-- 打开静态方法的调用限制 -->
+<constant name = "struts.ognl.allowStaticMethodAccess" value = "true"></constant>
+
+
+
+<package  name="user" namespace="/" extends="struts-default">
+      <action name="login"  class="com.qimh.action.LoginAction" method = "login">
+	      <result name = "success">/success.jsp</result>
+      </action>
+      
+      <action name="testTag"  class="com.qimh.action.LoginAction" method = "testTag">
+	      <result name = "success">/common-tag.jsp</result>
+      </action>
+      
+      <action name="save"  class="com.qimh.action.UserAction" method = "save">
+	      <result name = "input">/form-tag.jsp</result>
+      </action>
+      
+</package>
+
+</struts>
