@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
 public class MyTools {
 
 	
@@ -14,7 +12,14 @@ public class MyTools {
 	 Map<String, String> map = new HashMap<String, String>();
 	 map.put("11", "22");
 	 map.put("33", "44");
+	 System.out.println(map);
+	 
+	 System.out.println("-------------------");
+	 
+	 //map ×ª»»³Élist
+	 ArrayList<String> list2 = (ArrayList<String>) new ArrayList<String>(map.values());
 	
+	 System.out.println(list2);
 	 
 	 
 	 ArrayList<String> list = new ArrayList<String>();

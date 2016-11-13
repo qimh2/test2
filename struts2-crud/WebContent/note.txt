@@ -1,0 +1,51 @@
+1.Action 实现ModelDriven 接口后的运行流程
+
+  1).先会执行ModelDrivenInterceptor 的intercept方法
+  
+  
+  public String intercept(ActionInvocation invocation) throws Exception {
+        //获取Action 对象：EmployeeAction 对象，此时改Action已经实现了ModelDriven接口
+        //public class EmployeeAction implements RequestAware,ModelDriven<Employee>
+        Object action = invocation.getAction();
+		//判断action是否是ModelDriven的实例
+        if (action instanceof ModelDriven) {
+        	//强制转为ModelDriven类型
+            ModelDriven modelDriven = (ModelDriven) action;
+            //获取值栈
+            ValueStack stack = invocation.getStack();
+            //调用ModelDriven接口的getModel()方法，即调用EmployeeAction的getModel()方法
+            /*
+            	@Override
+				public Employee getModel() {
+					// TODO Auto-generated method stub
+					employee = new Employee();
+					return employee;
+				}
+             */
+            Object model = modelDriven.getModel();
+            if (model !=  null) {
+                //把getModel() 方法返回值压入值栈的栈顶，实际压入的是EmployeeAction类的成员变量employee
+            	stack.push(model);
+            }
+            if (refreshModelBeforeResult) {
+                invocation.addPreResultListener(new RefreshModelBeforeResult(modelDriven, model));
+            }
+        }
+        return invocation.invoke();
+    }
+    
+    
+    
+    
+    
+    
+    2).ParametersInterceptor 的doIntercept()方法：把请求参数的值，赋给栈顶对象对应的属性，若栈顶对象没有对应的属性，则查询值栈中下一个对象的属性...(一次类推)
+    
+    
+    
+    注意：getModel方法不能提供一下实现，的确返回一个Employee对象到值栈的栈顶，但当前Action的employee成员变量为null
+    public Employee getModel() {
+		// TODO Auto-generated method stub
+		return  new Employee();
+	}
+    
