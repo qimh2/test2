@@ -14,6 +14,11 @@ import com.qimh.utils.MyTools;
 
 public class UserClServlet extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -75,6 +80,15 @@ public class UserClServlet extends HttpServlet {
 		
 
 	}
+	
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		this.doGet(request, response);
+
+	}
+	
 
 	//修改用户信息
 	private void modUserService(HttpServletRequest request,
@@ -151,11 +165,5 @@ public class UserClServlet extends HttpServlet {
 		}
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		this.doGet(request, response);
-
-	}
 
 }
